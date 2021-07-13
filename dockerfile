@@ -2,7 +2,7 @@ FROM node:14
 
 WORKDIR /personal-website
 
-COPY package.json .
+COPY package*.json .
 
 RUN npm i
 
