@@ -16,16 +16,16 @@ jobs:
         username: ${{ secrets.REGISTRY_USER }}
         password: ${{ secrets.REGISRTY_PASSWORD }}
       
-#     - name: docker build
-#       run: docker build . -t ${{ secrets.REGISTRY_USER }}/${{ github.event.repository.name }}
+    - name: docker build
+      run: docker build . -t ${{ secrets.REGISTRY_USER }}/${{ github.event.repository.name }}
       
-#     - name: docker push
-#       run: docker push ${{ secrets.REGISTRY_USER }}/${{ github.event.repository.name }}
+    - name: docker push
+      run: docker push ${{ secrets.REGISTRY_USER }}/${{ github.event.repository.name }}
 
-    - name: build & push docker image
-      uses: docker/build-push-action@master
-      with:
-        tags: ${{ secrets.REGISTRY_USER }}/${{ github.event.repository.name }}
+#     - name: build & push docker image
+#       uses: docker/build-push-action@master
+#       with:
+#         tags: ${{ secrets.REGISTRY_USER }}/${{ github.event.repository.name }}
       
     - name: replace
       uses: appleboy/ssh-action@master
@@ -35,7 +35,7 @@ jobs:
         username: ${{ secrets.HOST_USER }}
         password: ${{ secrets.HOST_PASSWORD }}
         script: |
-          cd server/${{ github.event.repository.name }}
+          cd /server/${{ github.event.repository.name }}
           docker-compose down
           docker rmi ${{ secrets.REGISTRY_USER }}/${{ github.event.repository.name }}
           docker-compose up --detach
