@@ -10,6 +10,8 @@ COPY . .
 
 RUN npm run build --prod
 
+FROM nginx
+
 COPY --from=build /personal-website/dist/apps/personal-website /usr/share/nginx/html
 
 EXPOSE 80
